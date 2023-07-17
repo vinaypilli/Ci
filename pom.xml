@@ -139,4 +139,9 @@
 			</plugin>
 		</plugins>
 	</build>
+	<properties>
+    <!-- other properties -->
+    <sonar.host.url>http://13.233.158.36:9000/</sonar.host.url>
+</properties>
+
 </project>
