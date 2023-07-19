@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spring-boot-app-deployment
+spec:
+  replicas: 3  # Adjust the number of replicas as per your requirement
+  selector:
+    matchLabels:
+      app: spring-boot-app
+  template:
+    metadata:
+      labels:
+        app: spring-boot-app
+    spec:
+      containers:
+        - name: spring-boot-app-container
+          image: pillivinay/cicd:latest  # Replace with your Docker image details
+          ports:
+            - containerPort: 8081  # The port your Spring Boot app is listening on inside the container
+          env:
+            - name: spring.datasource.url
+              value: jdbc:mysql://mysql-container:3306/notesdb?createDatabaseIfNotExist=true&sessionVariables=sql_mode='NO_ENGINE_SUBSTITUTION'&jdbcCompliantTruncation=false  # MySQL connection URL
+            - name: spring.datasource.username
+              value: root  # MySQL username
+            - name: spring.datasource.password
+              value: root  # MySQL password
+            - name: jwt.secret
+              value: techgeeknext  # JWT secret
+            - name: spring.mail.host
+              value: smtp.gmail.com  # Email host
+            - name: spring.mail.username
+              value: ceoconnect@teamcomputers.com  # Email username
+            - name: spring.mail.password
+              value: bahzpkeerlaovlbh  # Email password
+            - name: gmail.spring.mail.properties.mail.smtp.auth
+              value: "true"  # Enable email authentication
+            - name: spring.mail.properties.mail.smtp.socketFactory.port
+              value: "465"  # Email socket factory port
+            - name: spring.mail.properties.mail.smtp.socketFactory.class
+              value: javax.net.ssl.SSLSocketFactory  # Email socket factory class
+            - name: spring.mail.properties.mail.smtp.socketFactory.fallback
+              value: "false"  # Disable fallback
